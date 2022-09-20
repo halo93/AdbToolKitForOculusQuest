@@ -1,6 +1,8 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using System.IO;
 using System.Timers;
 using SharpAdbClient;
+using static System.Net.Mime.MediaTypeNames;
 using Timer = System.Timers.Timer;
 
 internal class Program
@@ -9,6 +11,7 @@ internal class Program
     private static int batteryLevel = 0;
     private static AdbClient client;
     private static DeviceData device;
+    private static string FILE_PATH = Directory.CreateDirectory(Directory.GetCurrentDirectory() + "\\stats") + "\\";
     private static void Main(string[] args)
     {
         AdbServer server = new AdbServer();
@@ -23,12 +26,12 @@ internal class Program
         Console.WriteLine($"Preparing to open the application '{appList[randomAppIndex]}' on the mobile phone");
         client.ExecuteRemoteCommandAsync(command, device, receiver, CancellationToken.None);
         var receiver2 = new ConsoleOutputReceiver();
-        ExecuteBackgroundTaskToGetBatteryInfo();
+        ExecuteBackgroundTaskToGetBatteryInfo($"{FILE_PATH}{device.Model}-{device.Serial}-BatteryInfo.txt");
         Console.WriteLine("Press the Enter key to exit the program at any time... ");
         Console.ReadLine();
     }
 
-    private static async Task ExecuteBackgroundTaskToGetBatteryInfo()
+    private static async Task ExecuteBackgroundTaskToGetBatteryInfo(string filePath)
     {
         while (true)
         {
@@ -36,8 +39,32 @@ internal class Program
             {
                 getBatteryLevel();
                 Console.WriteLine("Field Battery: " + batteryLevel);
+                writeBatteryLevelToFile(filePath);
             });
             await Task.Delay(TimeSpan.FromSeconds(10));
+        }
+    }
+
+    private static void writeBatteryLevelToFile(string filePath)
+    {
+        // This text is added only once to the file.
+        if (!File.Exists(filePath))
+        {
+            // Create a file to write to.
+            using (StreamWriter sw = File.CreateText(filePath))
+            {
+                sw.WriteLine($"Battery statistics for {device.Model}-{device.Serial}");
+                sw.WriteLine($"{DateTime.Now} : Battery Level is {batteryLevel}%");
+                sw.WriteLine("-----------------------------------------------------");
+            }
+        }
+
+        // This text is always added, making the file longer over time
+        // if it is not deleted.
+        using (StreamWriter sw = File.AppendText(filePath))
+        {
+            sw.WriteLine($"{DateTime.Now} : Battery Level is {batteryLevel}%");
+            sw.WriteLine("-----------------------------------------------------");
         }
     }
 
