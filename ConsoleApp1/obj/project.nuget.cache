@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "pj4ODroTD9Nvgr2Un70CR0e2+SRdn70bJodz5ujPeiAj4P/MQpcAsAjQ6f4o0JZAAbN35E9KNIH5tX7t3+V1XQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\DELL\\source\\repos\\ConsoleApp1\\ConsoleApp1\\ConsoleApp1.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\DELL\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\2.0.0\\microsoft.extensions.logging.abstractions.2.0.0.nupkg.sha512",
+    "C:\\Users\\DELL\\.nuget\\packages\\microsoft.netcore.platforms\\2.0.0\\microsoft.netcore.platforms.2.0.0.nupkg.sha512",
+    "C:\\Users\\DELL\\.nuget\\packages\\microsoft.win32.systemevents\\4.5.0\\microsoft.win32.systemevents.4.5.0.nupkg.sha512",
+    "C:\\Users\\DELL\\.nuget\\packages\\sharpadbclient\\2.3.23\\sharpadbclient.2.3.23.nupkg.sha512",
+    "C:\\Users\\DELL\\.nuget\\packages\\system.buffers\\4.5.0\\system.buffers.4.5.0.nupkg.sha512",
+    "C:\\Users\\DELL\\.nuget\\packages\\system.drawing.common\\4.5.0\\system.drawing.common.4.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
